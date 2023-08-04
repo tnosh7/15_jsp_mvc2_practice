@@ -13,22 +13,24 @@
 			<table border="1">
 				<tr>
 					<td>작성자</td>
-					<td></td>
+					<td>${boardDTO.writer }</td>
 				</tr>
 				<tr>
 					<td>작성일</td>
-					<td></td>
+					<td>${boardDTO.enrollDt }</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td></td>
+					<td>${boardDTO.subject }</td>
 				</tr>
 				<tr>
 					<td>패스워드</td>
-					<td></td>
+					<td><input type="password" name="password"></td>
 				</tr>
 			</table>
 			<p>
+				<input type="hidden" name="boardId" value="${boardDTO.boardId }"/>
+				<input type="hidden" name="menu" value="${menu }"/>
 				<input type="submit" value="인증" />
 				<input type="button" onclick="location.href='bList'" value="목록보기" />
 			</p>

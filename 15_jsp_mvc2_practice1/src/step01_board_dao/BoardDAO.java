@@ -20,9 +20,9 @@ public class BoardDAO {
 		return instance;
 	}
 	
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 	
 	private void getConnection() {
 		try {
@@ -98,9 +98,10 @@ public class BoardDAO {
 		try {
 			getConnection();
 			
-			pstmt = conn.prepareStatement("SELETE * FROM BOARD WHERE BOARD_ID =?");
+			pstmt = conn.prepareStatement("SELETE * FROM BOARD WHERE BOARD_ID = ?");
 			pstmt.setLong(1, boardId);
 			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
 				boardDTO.setBoardId(rs.getLong("BOARD_ID"));
 				boardDTO.setReadCnt(rs.getLong("READ_CNT"));
@@ -118,5 +119,28 @@ public class BoardDAO {
 		}
 		System.out.println(boardDTO);
 		return boardDTO;
+	}
+	
+	public boolean checkAuthenticationUser(BoardDTO boardDTO) {
+
+		boolean isAuthenticationUser = false;
+		
+		try { 
+			getConnection();
+			
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ? AND PASSWORD = ?"); 
+			pstmt.setLong(1, boardDTO.getBoardId());
+			pstmt.setString(2, boardDTO.getPassword());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				isAuthenticationUser = true;
+			}
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		return isAuthenticationUser;
 	}
 }
