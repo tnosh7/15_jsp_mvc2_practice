@@ -8,8 +8,9 @@
 <body>
 
 	<div align="center">
+		<h1>커뮤니티 게시판</h1>
 		<img src="img/community.PNG" width="800" height="500"><br>
-		<input type="button" value="게시판 보기" onclick="location.href='bList'">
+		<p><a href="bList">이동하기</a></p>
 	</div>
 	
 </body>
